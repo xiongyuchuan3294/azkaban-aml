@@ -1,0 +1,15 @@
+# OCR识别
+paddleocr>=2.7.0
+pillow>=10.0.0
+pdf2image>=1.16.0
+pytesseract>=0.3.10
+
+# 数据处理
+pandas>=2.0.0
+openpyxl>=3.1.0
+python-dateutil>=2.8.0
+
+# 可选：Tesseract OCR
+# pytesseract需要系统安装tesseract
+# macOS: brew install tesseract tesseract-lang
+# Linux: sudo apt-get install tesseract-ocr tesseract-ocr-chi-sim

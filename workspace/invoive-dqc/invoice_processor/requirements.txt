@@ -1,0 +1,8 @@
+# 发票智能筛选系统 依赖包
+
+# PDF处理
+pdfplumber>=0.10.0
+PyMuPDF>=1.23.0
+
+# 日期处理
+python-dateutil>=2.8.0
