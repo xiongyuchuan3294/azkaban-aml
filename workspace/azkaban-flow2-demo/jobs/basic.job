@@ -1,0 +1,2 @@
+type=noop
+dependencies=check_alert_result

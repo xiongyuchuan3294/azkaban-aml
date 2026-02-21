@@ -1,0 +1,2 @@
+type=command
+command=beeline -u ${hive_jdbc_url} -n ${hive_user} --hivevar run_date_std=${run_date_std} --hivevar warehouse_external_dir=${warehouse_external_dir} --hivevar warehouse_managed_dir=${warehouse_managed_dir} -f ../sql/01_init_ods.sql
