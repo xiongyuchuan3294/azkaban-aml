@@ -1,0 +1,3 @@
+type=command
+dependencies=init_ods_data
+command=beeline -u ${hive_jdbc_url} -n ${hive_user} --hivevar run_date_std=${run_date_std} -f ../sql/02_ods_to_dwd.sql

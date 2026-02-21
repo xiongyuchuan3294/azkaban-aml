@@ -1,0 +1,2 @@
+type=command
+command=beeline -u ${hive_jdbc_url} -n ${hive_user} --hivevar run_date_std=${run_date_std} -f ../sql/01_init_ods.sql
