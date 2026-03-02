@@ -1,0 +1,19 @@
+{
+  "repo_path": "/Users/xiongyuc/workspace/azkaban-aml",
+  "generated_at": "2026-02-21T02:54:53.785838+00:00",
+  "total_commits": 1,
+  "commits": [
+    {
+      "commit_id": "bd2015a808de135c5ebcbc377fe3a91f6e211eb7",
+      "date": "2026-02-21T10:41:33+08:00",
+      "subject": "ceshi",
+      "changed_file_count": 1,
+      "changed_files": [
+        {
+          "path": "workspace/azkaban-aml/sql/03_dwd_to_dws.sql",
+          "summary": "sql file modified; +1/-1 lines; key points: hunk -6 +6 select ; + count(*) as txn_cnt,"
+        }
+      ]
+    }
+  ]
+}

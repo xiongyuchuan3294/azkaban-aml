@@ -1,0 +1,364 @@
+{
+  "generated_at": "2026-02-22T03:31:46.092376+00:00",
+  "status": "warning",
+  "repo_path": "/Users/xiongyuc/workspace/azkaban-aml",
+  "input_artifacts": {
+    "requirement_report": "/Users/xiongyuc/workspace/bigdata-test/skills/requirement-parser/outputs/requirement_report.md",
+    "diff_report": "/Users/xiongyuc/workspace/bigdata-test/skills/diff-parser/outputs/commit_report.json",
+    "requirement_report_format": "markdown"
+  },
+  "pipeline": [
+    "requirement-parser: 需求文档结构化抽取",
+    "diff-parser: git diff/commit 变更清单解析",
+    "requirement-impact-analysis: 需求点映射 + 血缘扩展 + 最小闭包 DAG + 测试节点范围"
+  ],
+  "requirement_summary": {
+    "title": "需求样例 01：新增平均交易额风险规则",
+    "functional_point_count": 6,
+    "workflow_nodes": [
+      "generate_aml_alert",
+      "check_alert_result"
+    ],
+    "tables": [
+      "aml_demo.dws_acct_risk_stat_di"
+    ]
+  },
+  "diff_summary": {
+    "total_commits": 1,
+    "changed_file_count": 1,
+    "changed_files": [
+      {
+        "path": "sql/03_dwd_to_dws.sql",
+        "summary": "sql file modified; +1/-1 lines; key points: hunk -6 +6 select ; + count(*) as txn_cnt,"
+      }
+    ]
+  },
+  "requirement_diff_mapping": {
+    "min_confidence": 0.22,
+    "fallback_confidence": 0.12,
+    "mapped_ratio": 0.333,
+    "mapped_items": [
+      {
+        "requirement_item_id": "FP004",
+        "requirement_type": "rule_change",
+        "requirement_text": "命中条件：`txn_cnt >= 3` 且 `avg_amt >= 60000`。",
+        "mapping_mode": "fallback",
+        "matched_files": [
+          {
+            "path": "sql/03_dwd_to_dws.sql",
+            "summary": "sql file modified; +1/-1 lines; key points: hunk -6 +6 select ; + count(*) as txn_cnt,",
+            "confidence": 0.159,
+            "node_candidates": [
+              "dwd_to_dws"
+            ],
+            "rationale": [
+              "关键词重合度=0.12",
+              "未达到阈值，采用最高分回退映射"
+            ]
+          }
+        ]
+      },
+      {
+        "requirement_item_id": "FP006",
+        "requirement_type": "metric_change",
+        "requirement_text": "证据字段：输出 `txn_cnt` 与 `avg_amt`。",
+        "mapping_mode": "threshold",
+        "matched_files": [
+          {
+            "path": "sql/03_dwd_to_dws.sql",
+            "summary": "sql file modified; +1/-1 lines; key points: hunk -6 +6 select ; + count(*) as txn_cnt,",
+            "confidence": 0.276,
+            "node_candidates": [
+              "dwd_to_dws"
+            ],
+            "rationale": [
+              "关键词重合度=0.14",
+              "指标型需求与聚合层文件特征匹配"
+            ]
+          }
+        ]
+      }
+    ],
+    "unmapped_requirement_items": [
+      {
+        "requirement_item_id": "FP001",
+        "requirement_type": "metric_change",
+        "requirement_text": "在 DWS 账户风险聚合表中新增指标 `avg_amt`（日均交易额）。",
+        "reason": "未找到达到最低置信度的变更文件映射"
+      },
+      {
+        "requirement_item_id": "FP002",
+        "requirement_type": "rule_change",
+        "requirement_text": "在 ADS 预警生成逻辑中新增规则 `R004`：",
+        "reason": "未找到达到最低置信度的变更文件映射"
+      },
+      {
+        "requirement_item_id": "FP003",
+        "requirement_type": "rule_change",
+        "requirement_text": "规则含义：账户当日交易笔数较多且平均交易额较高，判定为高风险。",
+        "reason": "未找到达到最低置信度的变更文件映射"
+      },
+      {
+        "requirement_item_id": "FP005",
+        "requirement_type": "rule_change",
+        "requirement_text": "风险等级：`HIGH`。",
+        "reason": "未找到达到最低置信度的变更文件映射"
+      }
+    ],
+    "unmapped_changed_files": []
+  },
+  "lineage_analysis": {
+    "seed_nodes": [
+      "generate_aml_alert",
+      "check_alert_result",
+      "dwd_to_dws"
+    ],
+    "direct_nodes": {
+      "from_requirement": [
+        "generate_aml_alert",
+        "check_alert_result"
+      ],
+      "from_mapping": [
+        "dwd_to_dws"
+      ],
+      "from_diff": [
+        "dwd_to_dws"
+      ]
+    },
+    "must_run_nodes": [
+      "init_ods_data",
+      "ods_to_dwd",
+      "dwd_to_dws",
+      "generate_aml_alert",
+      "check_alert_result"
+    ],
+    "validation_nodes": [
+      "basic"
+    ],
+    "minimal_closure_dag": {
+      "nodes": [
+        "init_ods_data",
+        "ods_to_dwd",
+        "dwd_to_dws",
+        "generate_aml_alert",
+        "check_alert_result"
+      ],
+      "edges": [
+        {
+          "from": "dwd_to_dws",
+          "to": "generate_aml_alert",
+          "type": "dependency"
+        },
+        {
+          "from": "dwd_to_dws",
+          "to": "generate_aml_alert",
+          "type": "table_lineage"
+        },
+        {
+          "from": "generate_aml_alert",
+          "to": "check_alert_result",
+          "type": "dependency"
+        },
+        {
+          "from": "generate_aml_alert",
+          "to": "check_alert_result",
+          "type": "table_lineage"
+        },
+        {
+          "from": "init_ods_data",
+          "to": "ods_to_dwd",
+          "type": "dependency"
+        },
+        {
+          "from": "init_ods_data",
+          "to": "ods_to_dwd",
+          "type": "table_lineage"
+        },
+        {
+          "from": "ods_to_dwd",
+          "to": "dwd_to_dws",
+          "type": "dependency"
+        },
+        {
+          "from": "ods_to_dwd",
+          "to": "dwd_to_dws",
+          "type": "table_lineage"
+        }
+      ]
+    },
+    "expanded_node_graph": {
+      "nodes": [
+        "init_ods_data",
+        "ods_to_dwd",
+        "dwd_to_dws",
+        "generate_aml_alert",
+        "check_alert_result",
+        "basic"
+      ],
+      "edges": [
+        {
+          "from": "check_alert_result",
+          "to": "basic",
+          "type": "dependency"
+        },
+        {
+          "from": "dwd_to_dws",
+          "to": "generate_aml_alert",
+          "type": "dependency"
+        },
+        {
+          "from": "dwd_to_dws",
+          "to": "generate_aml_alert",
+          "type": "table_lineage"
+        },
+        {
+          "from": "generate_aml_alert",
+          "to": "check_alert_result",
+          "type": "dependency"
+        },
+        {
+          "from": "generate_aml_alert",
+          "to": "check_alert_result",
+          "type": "table_lineage"
+        },
+        {
+          "from": "init_ods_data",
+          "to": "ods_to_dwd",
+          "type": "dependency"
+        },
+        {
+          "from": "init_ods_data",
+          "to": "ods_to_dwd",
+          "type": "table_lineage"
+        },
+        {
+          "from": "ods_to_dwd",
+          "to": "dwd_to_dws",
+          "type": "dependency"
+        },
+        {
+          "from": "ods_to_dwd",
+          "to": "dwd_to_dws",
+          "type": "table_lineage"
+        }
+      ]
+    },
+    "tables": {
+      "direct": [
+        "ads_aml_alert_di",
+        "aml_demo.dws_acct_risk_stat_di",
+        "dwd_txn_detail_di",
+        "dws_acct_risk_stat_di"
+      ],
+      "upstream": [
+        "ods_txn_raw"
+      ],
+      "downstream": [],
+      "all": [
+        "ads_aml_alert_di",
+        "aml_demo.dws_acct_risk_stat_di",
+        "dwd_txn_detail_di",
+        "dws_acct_risk_stat_di",
+        "ods_txn_raw"
+      ],
+      "edges": [
+        {
+          "from_table": "dwd_txn_detail_di",
+          "to_table": "dws_acct_risk_stat_di",
+          "via_node": "dwd_to_dws"
+        },
+        {
+          "from_table": "dws_acct_risk_stat_di",
+          "to_table": "ads_aml_alert_di",
+          "via_node": "generate_aml_alert"
+        },
+        {
+          "from_table": "ods_txn_raw",
+          "to_table": "dwd_txn_detail_di",
+          "via_node": "ods_to_dwd"
+        }
+      ]
+    },
+    "node_test_scope": [
+      {
+        "node": "init_ods_data",
+        "scope": "must_run",
+        "dependency_tables": [],
+        "result_tables": [
+          "ods_txn_raw"
+        ],
+        "reasons": [
+          "最小闭包的上游依赖节点"
+        ]
+      },
+      {
+        "node": "ods_to_dwd",
+        "scope": "must_run",
+        "dependency_tables": [
+          "ods_txn_raw"
+        ],
+        "result_tables": [
+          "dwd_txn_detail_di"
+        ],
+        "reasons": [
+          "最小闭包的上游依赖节点"
+        ]
+      },
+      {
+        "node": "dwd_to_dws",
+        "scope": "must_run",
+        "dependency_tables": [
+          "dwd_txn_detail_di"
+        ],
+        "result_tables": [
+          "dws_acct_risk_stat_di"
+        ],
+        "reasons": [
+          "由需求点映射到变更文件",
+          "对应 git diff 直接变更"
+        ]
+      },
+      {
+        "node": "generate_aml_alert",
+        "scope": "must_run",
+        "dependency_tables": [
+          "dws_acct_risk_stat_di"
+        ],
+        "result_tables": [
+          "ads_aml_alert_di"
+        ],
+        "reasons": [
+          "来自需求文档推断节点"
+        ]
+      },
+      {
+        "node": "check_alert_result",
+        "scope": "must_run",
+        "dependency_tables": [
+          "ads_aml_alert_di"
+        ],
+        "result_tables": [],
+        "reasons": [
+          "来自需求文档推断节点"
+        ]
+      },
+      {
+        "node": "basic",
+        "scope": "validation",
+        "dependency_tables": [],
+        "result_tables": [],
+        "reasons": [
+          "下游验证节点"
+        ]
+      }
+    ],
+    "suggested_checks": [
+      "先执行最小闭包节点链路：init_ods_data -> ods_to_dwd -> dwd_to_dws -> generate_aml_alert -> check_alert_result，确保依赖完整后再验证结果。",
+      "补充下游验证节点：basic，确认变更未引入回归。",
+      "重点核对结果表：ads_aml_alert_di, dws_acct_risk_stat_di"
+    ]
+  },
+  "warnings": [
+    "需求点映射覆盖率低于 40%，建议补充关键词、表映射或人工确认。"
+  ]
+}

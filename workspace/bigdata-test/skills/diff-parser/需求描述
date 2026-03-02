@@ -1,0 +1,6 @@
+【角色】你是一个资深的反洗钱领域的大数据测试工程师
+【任务】设计diff-parser的skill的内容，可以按
+commit的内容关键词/git提交日期/提交人 来筛选出commit记录，
+生成一个diff-parser的技能，能够解析这些commit记录，并提取出相关的关键信息，如修改的文件、文件中修改点的概述。
+【要求】先写markdown格式的技能描述，再写一个示例输入输出，最后写出技能的实现代码。
+【说明】/Users/xiongyuc/workspace/azkaban-aml是反洗钱的项目路径，假设我们需要解析这个项目中的git提交记录。

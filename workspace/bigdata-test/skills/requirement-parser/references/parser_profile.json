@@ -1,0 +1,137 @@
+{
+  "functional_keywords": [
+    "新增",
+    "修改",
+    "优化",
+    "删除",
+    "规则",
+    "指标",
+    "字段",
+    "预警",
+    "风险",
+    "阈值",
+    "条件",
+    "输出",
+    "证据"
+  ],
+  "input_keywords": [
+    "输入",
+    "来源",
+    "读取",
+    "命中条件",
+    "条件",
+    "阈值",
+    "依赖字段",
+    "上游"
+  ],
+  "output_keywords": [
+    "输出",
+    "产出",
+    "写入",
+    "生成",
+    "落地",
+    "证据字段",
+    "风险等级",
+    "下游"
+  ],
+  "condition_keywords": [
+    "命中条件",
+    "条件",
+    "阈值",
+    ">=",
+    "<=",
+    "==",
+    "判定"
+  ],
+  "logic_type_keywords": {
+    "rule_change": [
+      "规则",
+      "命中",
+      "风险等级",
+      "判定"
+    ],
+    "metric_change": [
+      "指标",
+      "字段",
+      "口径",
+      "聚合"
+    ],
+    "output_change": [
+      "输出",
+      "产出",
+      "证据"
+    ],
+    "table_change": [
+      "表",
+      "分层"
+    ],
+    "general": []
+  },
+  "workflow_rules": [
+    {
+      "node": "init_ods_data",
+      "keywords": [
+        "初始化",
+        "ods",
+        "原始数据"
+      ],
+      "layers": [
+        "ODS"
+      ],
+      "base_confidence": 0.62
+    },
+    {
+      "node": "ods_to_dwd",
+      "keywords": [
+        "明细",
+        "清洗",
+        "dwd",
+        "ods"
+      ],
+      "layers": [
+        "ODS",
+        "DWD"
+      ],
+      "base_confidence": 0.72
+    },
+    {
+      "node": "dwd_to_dws",
+      "keywords": [
+        "聚合",
+        "统计",
+        "dws"
+      ],
+      "layers": [
+        "DWS"
+      ],
+      "base_confidence": 0.84
+    },
+    {
+      "node": "generate_aml_alert",
+      "keywords": [
+        "预警",
+        "规则",
+        "命中",
+        "风险"
+      ],
+      "layers": [
+        "ADS"
+      ],
+      "base_confidence": 0.86
+    },
+    {
+      "node": "check_alert_result",
+      "keywords": [
+        "校验",
+        "核对",
+        "证据",
+        "结果"
+      ],
+      "layers": [
+        "ADS",
+        "DWS"
+      ],
+      "base_confidence": 0.75
+    }
+  ]
+}

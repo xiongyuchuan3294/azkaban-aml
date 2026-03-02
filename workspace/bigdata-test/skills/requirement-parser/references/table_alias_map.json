@@ -1,0 +1,44 @@
+{
+  "aliases": [
+    {
+      "alias": "ODS交易明细表",
+      "table": "aml_demo.ods_txn_detail_di"
+    },
+    {
+      "alias": "交易明细ODS表",
+      "table": "aml_demo.ods_txn_detail_di"
+    },
+    {
+      "alias": "DWD交易明细表",
+      "table": "aml_demo.dwd_txn_detail_di"
+    },
+    {
+      "alias": "交易明细DWD表",
+      "table": "aml_demo.dwd_txn_detail_di"
+    },
+    {
+      "alias": "DWS账户风险聚合表",
+      "table": "aml_demo.dws_acct_risk_stat_di"
+    },
+    {
+      "alias": "账户风险聚合表",
+      "table": "aml_demo.dws_acct_risk_stat_di"
+    },
+    {
+      "alias": "DWS风险统计表",
+      "table": "aml_demo.dws_acct_risk_stat_di"
+    },
+    {
+      "alias": "ADS预警结果表",
+      "table": "aml_demo.ads_aml_alert_di"
+    },
+    {
+      "alias": "ADS预警表",
+      "table": "aml_demo.ads_aml_alert_di"
+    },
+    {
+      "alias": "反洗钱预警结果表",
+      "table": "aml_demo.ads_aml_alert_di"
+    }
+  ]
+}
