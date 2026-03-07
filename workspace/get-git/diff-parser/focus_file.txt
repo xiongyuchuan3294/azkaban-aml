@@ -1,0 +1,4 @@
+# One selector per line.
+# Supports exact relative path or basename.
+03_dwd_to_dws.sql
+04_generate_aml_alert.sql
