@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "hive-mcp-local-mac": {
+      "command": "/Users/xiongyuc/workspace/hive-mcp-local-mac/start.sh",
+      "description": "Hive MCP Server - Mac Local"
+    }
+  }
+}
